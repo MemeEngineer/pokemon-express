@@ -10,7 +10,7 @@ function Index(props){
     return(
         <main>
             
-            <h1 style={myStyle}>Sell All the Pokemon!</h1>
+            <h1 style={myStyle}>See All the Pokemon!</h1>
             <ul>
                 {pokemon.map((monster,i) => {
                     return(
