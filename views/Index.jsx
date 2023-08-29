@@ -2,7 +2,7 @@ const React = require('react')
 
 function Index(props){
      const {pokemon} = props
-     console.log(pokemon)
+     
     const myStyle = {
         color: '#ffffff',
         backgroundColor: '#000000',
