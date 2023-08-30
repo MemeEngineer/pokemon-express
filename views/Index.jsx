@@ -14,9 +14,9 @@ function Index(props){
             <ul>
                 {pokemon.map((monster,i) => {
                     return(
-                        <li key={i}>
+                        <li key={monster._id}>
                             The
-                            <a href={`/pokemon/${i}`} style={{textTransform: 'capitalize'}}> {monster.name}</a> 
+                            <a href={`/pokemon/${monster._id}`} style={{textTransform: 'capitalize'}}> {monster.name}</a> 
                         </li>
                     )
                 })}

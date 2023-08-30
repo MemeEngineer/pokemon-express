@@ -3,8 +3,9 @@ const app = express();
 const port = 3000;
 const jsxEngine = require('jsx-view-engine')
 const {pokemon} = require('./models/pokemon')
-
-
+require('dotenv').config();
+const mongoose = require('mongoose');
+const Pokemons = require('./models/pokemons')
 // App Config
 app.set('view engine', 'jsx');
 app.engine('jsx',jsxEngine())
@@ -26,22 +27,45 @@ app.get('/', (req, res) => {
 
 //Index
 
-app.get('/pokemon', (req, res) => {
+app.get('/pokemon', async(req, res) => {
+    const pokemonsFromDB = await Pokemons.find({})
+    console.log(pokemonsFromDB)
     res.render('Index',{
-        pokemon: pokemon
+        pokemon: pokemonsFromDB
     })
 })
+
+//Create
+app.post('/pokemon/new', async (req, res)=> {
+
+    // create a new veg in db
+    try {
+        const createdPokemon = await Pokemons.create(req.body);
+        console.log(createdPokemon);
+        res.redirect('/pokemon');
+
+    } catch (error) {
+        console.log(error);
+        // res.json({error});
+    }
+})
+
 
 //Show
-app.get('/pokemon/:id', (req, res) => {
+app.get('/pokemon/:id', async(req, res) => {
     const {id} = req.params
-    
+    const pokemons = await Pokemons.findById(id)
+    console.log('Found Pokemon ->', pokemons);
     res.render('Show', {
-        pokemon: pokemon[id]
+        pokemon: pokemons
     })
 })
 
-
+//connecting to database
+mongoose.connect(process.env.MONGO_URI)
+mongoose.connection.once('open', ()=> {
+    console.log('connected to mongo');
+})
 
 
 app.listen(port, () => {
