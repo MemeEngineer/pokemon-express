@@ -1,11 +1,12 @@
 const express = require('express');
-const app = express();
-const port = 3000;
 const jsxEngine = require('jsx-view-engine')
-const {pokemon} = require('./models/pokemon')
+// const {pokemon} = require('./models/pokemon')
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Pokemons = require('./models/pokemons')
+
+const app = express();
+const port = 3000;
 // App Config
 app.set('view engine', 'jsx');
 app.engine('jsx',jsxEngine())
@@ -28,15 +29,26 @@ app.get('/', (req, res) => {
 //Index
 
 app.get('/pokemon', async(req, res) => {
-    const pokemonsFromDB = await Pokemons.find({})
-    console.log(pokemonsFromDB)
-    res.render('Index',{
-        pokemon: pokemonsFromDB
-    })
+    try{
+        const pokemonsFromDB = await Pokemons.find({})
+        console.log(pokemonsFromDB)
+        res.render('Index',{
+            pokemon: pokemonsFromDB
+        })
+    } catch (error){
+        console.log(error)
+    }
+    
+   
+})
+//New
+app.get('/pokemon/new',(req, res)=> { 
+    res.render('New')
+
 })
 
 //Create
-app.post('/pokemon/new', async (req, res)=> {
+app.post('/pokemon', async (req, res)=> {
 
     // create a new veg in db
     try {

@@ -12,7 +12,9 @@ function New(){
                <br/>
                
                <input type='submit' name='' value= 'Create Pokemon' />
+               
             </form>
+           <button><a href="/pokemon">Back</a></button>
         </div>
     )
 }

@@ -8,7 +8,7 @@ function Show(props){
         backgroundColor: '#000000',
         };
        
-        const source = `${pokemon.img}.jpg`
+        // const source = `${pokemon.img}.jpg`
     return(
         <main>
             <h1 style={myStyle}>Gotta Catch 'Em All</h1>
@@ -17,7 +17,7 @@ function Show(props){
                         <h2>
                             {pokemon.name}
                         </h2>
-                            <img  src={source}  alt={pokemon.name}/>
+                            <img  src={pokemon.img}  alt={pokemon.name}/>
                             <a href={`/pokemon`}> Back</a> 
                             </div>
             </ul>
